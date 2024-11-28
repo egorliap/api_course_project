@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Schedule{% endblock %}
+{% block content %}
+<h5>Schedule</h5>
+<div class="row">
+    <div class="col s12">
+        <label for="month">Month</label>
+        <select id="month" class="browser-default">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <!-- ... -->
+        </select>
+    </div>
+    <div class="col s12">
+        <label for="year">Year</label>
+        <select id="year" class="browser-default">
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <!-- ... -->
+        </select>
+    </div>
+</div>
+<div class="row">
+    <!-- Таблица расписания -->
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <!-- ... -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Заполняется данными -->
+            <tr>
+                <td>6:00</td>
+                <td>Math</td>
+                <td>English</td>
+                <!-- ... -->
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

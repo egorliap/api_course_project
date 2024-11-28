@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Authentication{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col s12 m6 offset-m3">
+        <div id="login" class="card">
+            <div class="card-content">
+                <span class="card-title">Login</span>
+                <form>
+                    <div class="input-field">
+                        <input id="email" type="email" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="password" type="password" required>
+                        <label for="password">Password</label>
+                    </div>
+                    <button type="submit" class="btn waves-effect waves-light">Login</button>
+                </form>
+                <p class="right-align"><a href="#" onclick="showRegister()">Register</a></p>
+            </div>
+        </div>
+        <div id="register" class="card" style="display: none;">
+            <div class="card-content">
+                <span class="card-title">Register</span>
+                <form>
+                    <div class="input-field">
+                        <input id="reg_email" type="email" required>
+                        <label for="reg_email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="reg_password" type="password" required>
+                        <label for="reg_password">Password</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="full_name" type="text" required>
+                        <label for="full_name">Full Name</label>
+                    </div>
+                    <button type="submit" class="btn waves-effect waves-light">Register</button>
+                </form>
+                <p class="right-align"><a href="#" onclick="showLogin()">Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
