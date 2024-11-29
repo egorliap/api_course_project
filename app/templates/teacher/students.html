@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Students{% endblock %}
+{% block content %}
+<h5>Students</h5>
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Пример строки. Данные должны быть переданы через бэкэнд -->
+        <tr>
+            <td>John Doe</td>
+            <td>john.doe@example.com</td>
+            <td>
+                <a href="/teacher/schedule" class="btn-small">Add Lesson</a>
+                <a href="#" class="btn-small">View Lessons</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
