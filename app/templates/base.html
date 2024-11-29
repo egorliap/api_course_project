@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Electronic Diary{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <script src="{{ url_for('static', filename='js/materialize.min.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
     <title>{% block title %}My App{% endblock %}</title>
-    <!-- Materialize CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-    <!-- Custom Styles -->
-    <link href="/static/css/styles.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/styles.css"> 
+
+
 </head>
 <body>
     <header>
@@ -23,11 +20,11 @@
                 <a href="#" class="brand-logo">Diary</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <!-- Меню меняется в зависимости от роли -->
-                    {% if role == 'teacher' %}
+                    {% if role == 'is_teacher' %}
                         <li><a href="/students">Students</a></li>
                         <li><a href="/teacher/schedule">Schedule</a></li>
                         <li><a href="/teacher/submissions">Submissions</a></li>
-                    {% elif role == 'student' %}
+                    {% elif role == 'is_student' %}
                         <li><a href="/student/schedule">Schedule</a></li>
                         <li><a href="/student/homework">Homework</a></li>
                     {% endif %}
