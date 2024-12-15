@@ -7,13 +7,25 @@
             <div class="card-content">
                 <span class="card-title">Profile</span>
                 <div class="row">
-                    <div class="input-field col s12">
-                        <input id="full_name" type="text" value="{{ user.full_name }}">
-                        <label for="full_name">Full Name</label>
+                    <div class="col s12">
+                        <p><strong>First name:</strong> {{ profile.first_name }}</p>
                     </div>
-                    <div class="input-field col s12">
-                        <input id="email" type="email" value="{{ user.email }}">
-                        <label for="email">Email</label>
+                    <div class="col s12">
+                        <p><strong>Last name:</strong> {{ profile.last_name }}</p>
+                    </div>
+                    <div class="col s12">
+                        <p><strong>Role:</strong> 
+                            {% if profile.is_student %}
+                                Student
+                            {% elif profile.is_teacher %}
+                                Teacher
+                            {% else %}
+                                Not assigned
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="col s12">
+                        <p><strong>Email:</strong> {{ profile.email }}</p>
                     </div>
                 </div>
             </div>

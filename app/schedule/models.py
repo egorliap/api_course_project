@@ -4,6 +4,8 @@ from sqlalchemy import ForeignKey, text
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import Mapped, mapped_column
 
+from app.tasks.models import Task
+
 from app.db import Base, int_pk
 
 
@@ -15,7 +17,7 @@ class Lesson(Base):
     start_at: Mapped[datetime]
     duration: Mapped[timedelta]
 
-    task: Mapped["Task"] = relationship("Task", back_populates="lessons") # type: ignore
+    task: Mapped["Task"] = relationship("Task", back_populates="lesson") # type: ignore
 
     extend_existing = True
 

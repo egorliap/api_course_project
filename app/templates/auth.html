@@ -6,16 +6,16 @@
         <div id="login" class="card">
             <div class="card-content">
                 <span class="card-title">Login</span>
-                <form>
+                <form id = "login-form">
                     <div class="input-field">
-                        <input id="email" type="email" required>
+                        <input id="email" type="email" name="email" required>
                         <label for="email">Email</label>
                     </div>
                     <div class="input-field">
-                        <input id="password" type="password" required>
+                        <input id="password" type="password" name="password" required>
                         <label for="password">Password</label>
                     </div>
-                    <button type="submit" class="btn waves-effect waves-light">Login</button>
+                    <button type="submit" id="login-button" class="btn waves-effect waves-light" onclick="loginFunction(event)">Login</button>
                 </form>
                 <p class="right-align"><a href="#" onclick="showRegister()">Register</a></p>
             </div>
@@ -23,24 +23,49 @@
         <div id="register" class="card" style="display: none;">
             <div class="card-content">
                 <span class="card-title">Register</span>
-                <form>
+                <form id = "registration-form">
                     <div class="input-field">
-                        <input id="reg_email" type="email" required>
-                        <label for="reg_email">Email</label>
+                        <input id="email" type="email" name="email" required>
+                        <label for="email">Email</label>
                     </div>
                     <div class="input-field">
-                        <input id="reg_password" type="password" required>
+                        <input id="password" type="password" name="password" required>
                         <label for="reg_password">Password</label>
                     </div>
                     <div class="input-field">
-                        <input id="full_name" type="text" required>
-                        <label for="full_name">Full Name</label>
+                        <input id="first_name" type="text" name="first_name" required>
+                        <label for="first_name">First Name</label>
                     </div>
-                    <button type="submit" class="btn waves-effect waves-light">Register</button>
+                    <div class="input-field">
+                        <input id="last_name" type="text" name="last_name" required>
+                        <label for="last_name">Last Name</label>
+                    </div>
+                    <div class="input-field">
+                        <label for="role">Role</label>
+                        <select id="role" required>
+                            <option value="" disabled selected>Select your role</option> 
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="reg-button" class="btn waves-effect waves-light" onclick="regFunction(event)">Register</button>
                 </form>
                 <p class="right-align"><a href="#" onclick="showLogin()">Login</a></p>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts%}
+
+
+<script>
+    // Initialize the select element (required for MaterializeCSS, if used)
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
+
 {% endblock %}

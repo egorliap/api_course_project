@@ -2,21 +2,27 @@ from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
 
 from app.students.router import get_schedule, get_student_info, get_lesson_info
+from app.users.router import get_me
 
 router = APIRouter(prefix='/pages', tags=["Pages"])
 templates = Jinja2Templates(directory="app/templates")
 
 @router.get("/auth/")
 async def home(request: Request):
-    return templates.TemplateResponse("auth.html", {"request": request})
-
-@router.get("/student/")
-async def student(request: Request, students = Depends(get_student_info)):
     return templates.TemplateResponse(
-        "student/student.html", 
-        {"request": request,
-         "students": students
-         })
+        name = "auth.html",
+        context = {"request": request}
+        )
+
+@router.get("/profile")
+async def get_profile(request: Request, profile = Depends(get_me)):
+    return templates.TemplateResponse(
+        name="profile.html",
+        context={
+            "request": request,
+            "profile": profile,
+            }
+    )
 
 @router.get("/student/schedule")
 async def student_schedule(request: Request, lessons = Depends(get_schedule)):

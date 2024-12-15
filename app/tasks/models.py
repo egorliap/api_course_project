@@ -12,7 +12,7 @@ class Task(Base):
     given: Mapped[datetime]
     lesson_id: Mapped[int] = mapped_column(ForeignKey("lessons.id"), nullable=False)
     
-    lesson: Mapped["Lesson"] = relationship("Lesson", back_populates="lessons") # type: ignore
+    lesson: Mapped["Lesson"] = relationship("Lesson", back_populates="task") # type: ignore
 
     extend_existing = True
 

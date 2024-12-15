@@ -17,20 +17,14 @@
     <header>
         <nav>
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Diary</a>
+                <a href="/pages/profile" class="brand-logo">Diary</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <!-- Меню меняется в зависимости от роли -->
-                    {% if role == 'teacher' %}
-                        <li><a href="/students">Students</a></li>
-                        <li><a href="/teacher/schedule">Schedule</a></li>
-                        <li><a href="/teacher/submissions">Submissions</a></li>
-                    {% elif role == 'student' %}
-                        <li><a href="/student/schedule">Schedule</a></li>
-                        <li><a href="/student/homework">Homework</a></li>
-                    {% endif %}
+                    <li><a href="/pages/schedule">Schedule</a></li>
+                    <li><a href="/pages/homework">Homework</a></li>
                 </ul>
             </div>
         </nav>
+        <button type="submit" id="logout-button" class="submit-button" onclick="logoutFunction()">Выйти</button>
     </header>
 
     <main>
@@ -45,7 +39,10 @@
             <p class="grey-text text-lighten-4">Developed by cool team</p>
         </div>
     </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="/static/js/app.js"></script>
+    <script src="/static/js/auth.js"></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>
