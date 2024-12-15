@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 from app.users.router import router as router_users
 from app.students.router import router as router_students
@@ -13,6 +14,12 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 @app.get("/")
 async def home():
     return {"message":"Hw!"}
+
+templates = Jinja2Templates(directory="app/templates")
+
+@app.exception_handler(404)
+async def custom_404_handler(request, __):
+    return templates.TemplateResponse("404.html", {"request" : request})
 
 app.include_router(router_users)
 app.include_router(router_students)
