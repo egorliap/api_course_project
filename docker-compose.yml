@@ -1,4 +1,32 @@
-services:
+services: 
+  server:
+    image: python:3.12-alpine
+    container_name: fastapi_study
+    working_dir: /app
+    environment:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUNBUFFERED: "1"
+    command: >
+      sh -c "
+      apk update &&
+      apk upgrade &&
+      pip install --no-cache-dir -r requirements.txt &&
+      uvicorn app.main:app --host 0.0.0.0 --port 8000
+      "
+    volumes: 
+      - .:/app
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    restart: unless-stopped
+
   postgres:
     image: postgres:latest
     container_name: postgres_study
