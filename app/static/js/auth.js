@@ -7,13 +7,7 @@ async function regFunction(event) {
     const data = Object.fromEntries(formData.entries());
 
     const role = document.getElementById('role').value;
-    if (role === 'student') {
-        data.is_student = true;
-        data.is_teacher = false;
-    } else if (role === 'teacher') {
-        data.is_teacher = true;
-        data.is_student = false;
-    }
+    data.user_role = role
 
 
     

@@ -1,10 +1,13 @@
-from datetime import datetime, date
-from typing import Dict, List
+from datetime import datetime
+from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends
 
-from app.users.models import User
-from app.schedule.models import Lesson
+from app.auth_users.models import User
+from app.entities.teacher_student.service import Teacher_StudentService
+from app.entities.teachers.schemas import STeacher
+from app.entities.teachers.service import TeacherService
+from ..schedule.models import Lesson
 
 from .service import StudentService
 from .dependencies import is_authorized_student
@@ -31,8 +34,16 @@ async def get_schedule(date_from: datetime = datetime.now(),
 
 @router.get("/info/")
 async def get_student_info(user: User = Depends(is_authorized_student)):
-    return user
+    return SStudent.model_validate(user, from_attributes=True)
 
-@router.post("/lesson/solution")
-async def get_lesson_info(lesson_id: int, user: User = Depends(is_authorized_student)):
-    return user
+@router.get("/teachers/get/", response_model=List[STeacher])
+async def get_teachers(user: User = Depends(is_authorized_student)):
+    teachers_ids = [
+        en.teacher_id
+        for en in await Teacher_StudentService.find_all(student_id=user.id)
+    ]
+
+    return [
+        STeacher.model_validate(m)
+        for m in await TeacherService.find_all_by_ids(teachers_ids)
+    ]

@@ -1,35 +1,42 @@
-from typing import Annotated, Type
+from typing import List
 from sqlalchemy.future import select
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy import update as sqlalchemy_update, delete as sqlalchemy_delete 
+from sqlalchemy import update as sqlalchemy_update, delete as sqlalchemy_delete
 
 from app.db import async_session_maker
 
 
 class BaseService:
     model = None
-    
+
     @classmethod
     async def find_all(cls, **filter_by):
         async with async_session_maker() as session:
             query = select(cls.model).filter_by(**filter_by)
             items = await session.execute(query)
             return items.scalars().all()
-        
+
     @classmethod
-    async def find_one_or_none_by_id(cls, data_id:int):
+    async def find_one_or_none_by_id(cls, data_id: int):
         async with async_session_maker() as session:
             query = select(cls.model).filter_by(id=data_id)
             result = await session.execute(query)
             return result.scalar_one_or_none()
-    
+
+    @classmethod
+    async def find_all_by_ids(cls, ids: List[int], **filter_by):
+        async with async_session_maker() as session:
+            query = select(cls.model).filter_by(**filter_by).filter(cls.model.id.in_(ids))
+            items = await session.execute(query)
+            return items.scalars().all()
+        
     @classmethod
     async def find_one_or_none(cls, **filter_by):
         async with async_session_maker() as session:
             query = select(cls.model).filter_by(**filter_by)
             students = await session.execute(query)
             return students.scalars().one_or_none()
-    
+
     @classmethod
     async def insert(cls, **values):
         async with async_session_maker() as session:
@@ -42,7 +49,7 @@ class BaseService:
                     await session.rollback()
                     raise e
                 return new_instance
-            
+
     @classmethod
     async def update(cls, filter_by, **values):
         async with async_session_maker() as session:
@@ -60,12 +67,12 @@ class BaseService:
                     await session.rollback()
                     raise e
                 return result.rowcount
-            
+
     @classmethod
     async def delete(cls, delete_all: bool = False, **filter_by):
         if not delete_all and not filter_by:
             raise ValueError("Enter at least 1 parameter")
-        
+
         async with async_session_maker() as session:
             async with session.begin():
                 query = sqlalchemy_delete(cls.model).filter_by(**filter_by)

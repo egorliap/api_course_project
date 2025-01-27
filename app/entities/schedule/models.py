@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey, text
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.tasks.models import Task
+from app.entities.tasks.models import Task
 
 from app.db import Base, int_pk
 

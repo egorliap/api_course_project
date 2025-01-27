@@ -12,9 +12,9 @@ from alembic import context
 sys.path.insert(0, dirname(dirname(abspath(__file__))))
 
 from app.db import DB_URL, Base
-from app.users.models import User
-from app.schedule.models import Lesson
-from app.tasks.models import Task
+from app.auth_users.models import User
+from app.entities.schedule.models import Lesson
+from app.entities.tasks.models import Task
 from app.chat.models import Message
 
 
