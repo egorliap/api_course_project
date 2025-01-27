@@ -4,6 +4,9 @@ from fastapi.templating import Jinja2Templates
 
 from app.users.router import router as router_users
 from app.students.router import router as router_students
+from app.schedule.router import router as router_schedule
+from app.tasks.router import router as router_tasks
+from app.teacher.router import router as router_teacher
 from app.pages.router import router as router_pages
 
 
@@ -24,3 +27,6 @@ async def custom_404_handler(request, __):
 app.include_router(router_users)
 app.include_router(router_students)
 app.include_router(router_pages)
+app.include_router(router_schedule)
+app.include_router(router_tasks)
+app.include_router(router_teacher)

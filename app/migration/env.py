@@ -14,6 +14,8 @@ sys.path.insert(0, dirname(dirname(abspath(__file__))))
 from app.db import DB_URL, Base
 from app.users.models import User
 from app.schedule.models import Lesson
+from app.tasks.models import Task
+from app.chat.models import Message
 
 
 # this is the Alembic Config object, which provides

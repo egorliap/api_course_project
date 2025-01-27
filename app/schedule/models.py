@@ -23,3 +23,13 @@ class Lesson(Base):
 
     def __repr__(self):
         return f"{self.__class__.__name__}(id={self.id} date={self.start_at})"
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "student_id": self.student_id,
+            "teacher_id": self.teacher_id,
+            "start_at": self.start_at,
+            "duration": self.duration,
+            "task": self.task,
+            }

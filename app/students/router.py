@@ -5,9 +5,10 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 
 from app.users.models import User
 from app.schedule.models import Lesson
-#from .schemas import 
+
 from .service import StudentService
 from .dependencies import is_authorized_student
+from .schemas import SStudent
 
 
 router = APIRouter(prefix='/students', tags=["Students"], dependencies=[])

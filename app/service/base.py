@@ -1,6 +1,7 @@
 from typing import Annotated, Type
 from sqlalchemy.future import select
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import update as sqlalchemy_update, delete as sqlalchemy_delete 
 
 from app.db import async_session_maker
 
@@ -14,6 +15,13 @@ class BaseService:
             query = select(cls.model).filter_by(**filter_by)
             items = await session.execute(query)
             return items.scalars().all()
+        
+    @classmethod
+    async def find_one_or_none_by_id(cls, data_id:int):
+        async with async_session_maker() as session:
+            query = select(cls.model).filter_by(id=data_id)
+            result = await session.execute(query)
+            return result.scalar_one_or_none()
     
     @classmethod
     async def find_one_or_none(cls, **filter_by):
@@ -34,3 +42,37 @@ class BaseService:
                     await session.rollback()
                     raise e
                 return new_instance
+            
+    @classmethod
+    async def update(cls, filter_by, **values):
+        async with async_session_maker() as session:
+            async with session.begin():
+                query = (
+                    sqlalchemy_update(cls.model)
+                    .where(*[getattr(cls.model, k) == v for k, v in filter_by.items()])
+                    .values(**values)
+                    .execution_options(synchronize_session="fetch")
+                )
+                result = await session.execute(query)
+                try:
+                    await session.commit()
+                except SQLAlchemyError as e:
+                    await session.rollback()
+                    raise e
+                return result.rowcount
+            
+    @classmethod
+    async def delete(cls, delete_all: bool = False, **filter_by):
+        if not delete_all and not filter_by:
+            raise ValueError("Enter at least 1 parameter")
+        
+        async with async_session_maker() as session:
+            async with session.begin():
+                query = sqlalchemy_delete(cls.model).filter_by(**filter_by)
+                result = await session.execute(query)
+                try:
+                    await session.commit()
+                except SQLAlchemyError as e:
+                    await session.rollback()
+                    raise e
+                return result.rowcount
